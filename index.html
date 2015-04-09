@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>A Simple Page with CKEditor</title>
+        <script src="ckeditor/ckeditor.js"></script>
+		<script src="https://code.jquery.com/jquery-git2.min.js"></script>
+    </head>
+    <body>
+        <form>
+            <textarea name="editor1" id="editor1" rows="10" cols="80">
+            </textarea>
+            <script>
+
+				// NOTE: the return JSON structure can be easily changed; this was just the first attempt to define it
+
+				$.getJSON( "http://dev.on-e.com/elance/getTemplates.php", function( resp ) {
+
+					// parse resp['master']['content'] for all sub-template markers, e.g. [%SUB1%], [%SUB2%]
+					// and be prepared to swap in resp['master']['sub1']['content'], resp['master']['sub2']['content'] as needed
+
+					document.getElementById('editor1').value = resp['master']['content'];
+
+					/* $.each( resp, function( key, value ) {
+						console.log( key + " : " + value );
+					}); */
+
+				});
+
+				CKEDITOR.replace( 'editor1', {
+					extraPlugins: 'simplebox'
+				} );
+            </script>
+        </form>
+    </body>
+</html>
